@@ -1,6 +1,6 @@
 let matrix = [];
-let numRows = 10;
-let numCols = 10;
+let numRows = 3;
+let numCols = 3;
 
 // Initialization
 for (let row = 0; row < numRows; row++) {
