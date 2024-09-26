@@ -44,16 +44,17 @@
 
 // Promesas y async/await: Implementa una función que realice tres tareas asincrónicas (por ejemplo, usar setTimeout para simular una llamada a API) en paralelo, y devuelva los resultados cuando todas hayan terminado. La función debe manejar errores correctamente.
 
-// const generatePromise = (value) => {
-//   return new Promise((res, rej) => {
-//     setTimeout(() => {
-//       if (value) {
-//         res("good promise");
-//       }
-//       rej(new Error("bad promise"));
-//     }, 1000);
-//   });
-// };
+const generatePromise = (value) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      if (value) {
+        res("good promise");
+      } else {
+        rej(new Error("bad promise"));
+      }
+    }, 1000);
+  });
+};
 
 // const apiCall = async () => {
 //   try {
@@ -80,30 +81,65 @@
 
 // apiCall();
 
-const generatePromise = (value) => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      if (value) {
-        res("good promise");
-      } else {
-        rej(new Error("bad promise"));
-      }
-    }, 1000);
-  });
-};
+// const generatePromise = (value) => {
+//   return new Promise((res, rej) => {
+//     setTimeout(() => {
+//       if (value) {
+//         res("good promise");
+//       } else {
+//         rej(new Error("bad promise"));
+//       }
+//     }, 1000);
+//   });
+// };
 
-const apiCall = () => {
-  Promise.all([
-    generatePromise(true),
-    generatePromise(true),
-    generatePromise(true),
-  ])
-    .then((results) => {
-      console.log(results); // Solo se ejecuta si todas las promesas se resuelven
-    })
-    .catch((error) => {
-      console.error("One or more promises failed:", error); // Se ejecuta si alguna promesa falla
-    });
+// const apiCall = async () => {
+//   try {
+//     const result = await Promise.all([
+//       generatePromise(true).catch((error) => error),
+//       generatePromise(false).catch((error) => error),
+//       generatePromise(true).catch((error) => error),
+//     ]);
+//     console.log(result);
+//   } catch (err) {
+//     console.error(new Error(err));
+//   }
+// };
+
+// apiCall();
+
+// const apiCall = () => {
+//   Promise.all([
+//     generatePromise(true),
+//     generatePromise(true),
+//     generatePromise(true),
+//   ])
+//     .then((results) => {
+//       console.log(results); // Solo se ejecuta si todas las promesas se resuelven
+//     })
+//     .catch((error) => {
+//       console.error("One or more promises failed:", error); // Se ejecuta si alguna promesa falla
+//     });
+// };
+
+// apiCall();
+
+const apiCall = async () => {
+  const wrapPromise = async (promise) => {
+    try {
+      return await promise;
+    } catch (error) {
+      return error; // Retornar el error en lugar de romper la ejecución
+    }
+  };
+
+  const results = await Promise.all([
+    wrapPromise(generatePromise(true)),
+    wrapPromise(generatePromise(false)),
+    wrapPromise(generatePromise(true)),
+  ]);
+
+  console.log(results); // Se imprimirá ["good promise", Error: bad promise, "good promise"]
 };
 
 apiCall();
