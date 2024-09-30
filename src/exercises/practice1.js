@@ -1,4 +1,5 @@
-// Manipulación de Arrays: Escribe una función que reciba un array de objetos que representen personas (con propiedades como nombre, edad y ciudad) y devuelva un nuevo array filtrado solo con personas mayores de 30 años y cuyos nombres tengan más de 5 letras.
+// Manipulación de Arrays: Escribe una función que reciba un array de objetos que representen personas (con propiedades como nombre, edad y ciudad)
+// y devuelva un nuevo array filtrado solo con personas mayores de 30 años y cuyos nombres tengan más de 5 letras.
 
 // const users = [
 //   {
@@ -28,7 +29,8 @@
 
 // console.log(filterUsers(users));
 
-// Closures y Alcance: Crea una función que incremente un valor numérico cada vez que sea invocada, pero que no permita que el contador sea modificado desde fuera de la función.
+// Closures y Alcance: Crea una función que incremente un valor numérico cada vez que sea invocada,
+// pero que no permita que el contador sea modificado desde fuera de la función.
 
 // const increment = () => {
 //   let count = 0;
@@ -42,19 +44,20 @@
 // console.log(`Counter: ${execIncrement()}`);
 // console.log(`Counter: ${execIncrement()}`);
 
-// Promesas y async/await: Implementa una función que realice tres tareas asincrónicas (por ejemplo, usar setTimeout para simular una llamada a API) en paralelo, y devuelva los resultados cuando todas hayan terminado. La función debe manejar errores correctamente.
+// Promesas y async/await: Implementa una función que realice tres tareas asincrónicas (por ejemplo, usar setTimeout para simular una llamada a API)
+// en paralelo, y devuelva los resultados cuando todas hayan terminado. La función debe manejar errores correctamente.
 
-const generatePromise = (value) => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      if (value) {
-        res("good promise");
-      } else {
-        rej(new Error("bad promise"));
-      }
-    }, 1000);
-  });
-};
+// const generatePromise = (value) => {
+//   return new Promise((res, rej) => {
+//     setTimeout(() => {
+//       if (value) {
+//         res("good promise");
+//       } else {
+//         rej(new Error("bad promise"));
+//       }
+//     }, 1000);
+//   });
+// };
 
 // const apiCall = async () => {
 //   try {
@@ -124,22 +127,78 @@ const generatePromise = (value) => {
 
 // apiCall();
 
-const apiCall = async () => {
-  const wrapPromise = async (promise) => {
-    try {
-      return await promise;
-    } catch (error) {
-      return error; // Retornar el error en lugar de romper la ejecución
-    }
-  };
+// const apiCall = async () => {
+//   const wrapPromise = async (promise) => {
+//     try {
+//       return await promise;
+//     } catch (error) {
+//       return error; // Retornar el error en lugar de romper la ejecución
+//     }
+//   };
 
-  const results = await Promise.all([
-    wrapPromise(generatePromise(true)),
-    wrapPromise(generatePromise(false)),
-    wrapPromise(generatePromise(true)),
-  ]);
+//   const results = await Promise.all([
+//     wrapPromise(generatePromise(true)),
+//     wrapPromise(generatePromise(false)),
+//     wrapPromise(generatePromise(true)),
+//   ]);
 
-  console.log(results); // Se imprimirá ["good promise", Error: bad promise, "good promise"]
-};
+//   console.log(results); // Se imprimirá ["good promise", Error: bad promise, "good promise"]
+// };
 
-apiCall();
+// apiCall();
+
+// Dada una función que recibe un objeto anidado con información de un usuario (nombre, dirección, correo, etc.),
+// crea una nueva función que extraiga solo el nombre y el correo, y retorne un nuevo objeto con estos datos.
+
+// const user = {
+//   name: "Ivan",
+//   address: "Calle 777",
+//   email: "test@test.com",
+//   age: 40,
+// };
+
+// const tranformDataUser = ({ name, email }) => {
+//   return () => {
+//     return {
+//       name,
+//       email,
+//     };
+//   };
+// };
+
+// const newFunction = tranformDataUser(user);
+// console.log(newFunction());
+
+// Recursividad: Escribe una función recursiva que, dada una cadena de texto,
+//invierta el contenido de la cadena sin utilizar métodos nativos como reverse() o bucles tradicionales.
+
+// const response = [];
+// function reverseString(value) {
+//   if (value.length === 0) {
+//     return response.join("");
+//   }
+
+//   response.push(value.charAt(value.length - 1));
+//   const newEntry = value.split("");
+//   newEntry.pop();
+//   return reverseString(newEntry.join(""));
+// }
+
+// console.log(reverseString("ivan dario"));
+
+// mas eficiente
+
+// function reverseString(value, result = "") {
+//   // Caso base: si la cadena está vacía, retorna el resultado acumulado
+//   if (value.length === 0) {
+//     return result;
+//   }
+
+//   // Caso recursivo: añadir el último carácter al resultado y llamar a la función con el resto de la cadena
+//   return reverseString(
+//     value.slice(0, -1),
+//     result + value.charAt(value.length - 1)
+//   );
+// }
+
+// console.log(reverseString("ivan dario")); // Output: "oirad navi"
