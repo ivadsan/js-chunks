@@ -19,3 +19,11 @@ console.log(testFruits); // undefined
 
 const mostExpensive = fruits.some((fruit) => fruit.price === 1100);
 console.log("mostExpensive result: ", mostExpensive); // false
+
+const allExpensive = fruits.every((fruit) => fruit.price > 50); // true
+console.log("all price > 50", allExpensive);
+
+const total = fruits.reduce((total, fruit) => {
+  return total + fruit.price;
+}, 0);
+console.log("total price", total); //2000
